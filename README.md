@@ -56,14 +56,14 @@ It may also be beneficial to drop the string names for product/vendor analysis. 
 
 ![](https://i.imgur.com/1Q0CnTz.png) 
 
-### heatmap - (Category Diversity by Weekday)
-- There is a high variety of products on Tuesday and Friday throughout the months in the year
-- January had the highest amount of variety in categories ordered followed by December
+### heatmap - (Category Transactions by Weekday)
+- There is a high transaction rate of products on Tuesday and Friday throughout the months in the year
+- January had the highest amount of transactions in categories ordered followed by December
 - Sunday and Saturday contain anomalies
   - Iowa requires different vendor licenses to buy on weekends
   - Data points could be dropped to reinforce a trend
 
-![](https://i.imgur.com/DLZ7pjn.png)
+![](https://i.imgur.com/aO3nc5z.png)
 
 ### histplot (Pack Popularity by Category)
 - Most packs tend to hover around the 6-24 size
@@ -74,4 +74,4 @@ It may also be beneficial to drop the string names for product/vendor analysis. 
 ![](https://i.imgur.com/6Dvzq1e.png)
 
 ## Summary (Category Column)
-Prediction of the next purchase category seems feasible with the findings. Data could be subset into vendors to examine their high purchase products as some have higher popularity—American Vodka and Canadian Whiskey are among the top in transactions. For 2021, January and December were the most diverse in category selection, with the highest unique categories occurring on Tuesday and Friday. The pack quantities seem to focus around the twelve-pack and six-pack. The next category ordered can likely be predicted based on this information's historical data.
+Prediction of the next purchase category seems feasible with the findings. Data could be subset into vendors to examine their high purchase products as some have higher popularity—American Vodka and Canadian Whiskey are among the top in transactions. For 2021, January and December were the most active in category transactions, with the highest unique transactions occurring on Tuesday and Friday. The pack quantities seem to focus around the twelve-pack and six-pack. The next category ordered can likely be predicted based on this information's historical data.
