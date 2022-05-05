@@ -1,5 +1,9 @@
 # Machine Learning Project
-Iowa Liquor Sales: [Dataset Link](https://www.kaggle.com/datasets/gabrielramos87/iowa-sales-liquor-jan-2021jan-2022)
+
+# Part-1
+- Go to [Part 2](#Part-2)
+
+- Iowa Liquor Sales: [Dataset Link](https://www.kaggle.com/datasets/gabrielramos87/iowa-sales-liquor-jan-2021jan-2022)
 
 ## Overview
 -----------
@@ -73,5 +77,53 @@ It may also be beneficial to drop the string names for product/vendor analysis. 
 
 ![](https://i.imgur.com/6Dvzq1e.png)
 
-## Summary (Category Column)
+## Summary of Part 1 (Category Column)
 Prediction of the next purchase category seems feasible with the findings. Data could be subset into vendors to examine their high purchase products as some have higher popularity—American Vodka and Canadian Whiskey are among the top in transactions. For 2021, January and December were the most active in category transactions, with the highest unique transactions occurring on Tuesday and Friday. The pack quantities seem to focus around the twelve-pack and six-pack. The next category ordered can likely be predicted based on this information's historical data.
+
+# Part-2
+
+## Data Distributions
+- Similar to previous findings
+  - Certain categories highly popular (i.e. American Vodkas)
+  - Similar trends in volume sold in each category
+    - Small variations as volume is not equivalent to transaction occurrences
+- Outliers still present in large order sizes
+- Weekend sales data is much smaller due to state regulation
+  - Potentially drop for higher accuracy
+
+## Aggregations
+- Grouping by `category_name`
+- Mean, min, and max are used to evaluate the patterns of previous orders based off of:
+  - `bottles_sold`
+  - `packs`
+
+## Justifications
+
+### Data Sanitation
+- Dropping:
+  - redundant location information
+  - unique identifiers
+    - Possible preservation of vendor ID for recurring prediction purchases
+  - item string descriptions 
+  - any null entries at that point
+    - Minimal loss in entries since unneeded columns contained the majority of NA values
+  - categories with less than 1000 entries
+    - Top categories peak at nearly 400K entries
+    - Removing categories with a lower transaction rate may help improve accuracy
+
+### Encoding of Strings
+- Liquor categories and counties will be one-hot encoded
+  - May add a column overhead
+  - Will be more descriptive by not giving an imposed ordinal value
+  - Category and county should represent subsets of product clusters with no bias
+
+### Splitting X and Y Data
+- Features will be the remaining data to potentially find identifiers
+  - Pack size
+  - Bottles sold
+  - Volume
+  - County trends
+  - etc.
+- Label will be the category of the liquor
+  - The goal will be to predict which one will come next
+
