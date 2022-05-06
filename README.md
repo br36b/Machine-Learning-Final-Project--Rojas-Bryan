@@ -84,12 +84,18 @@ Prediction of the next purchase category seems feasible with the findings. Data 
 
 ## Data Distributions
 - Similar to previous findings
-  - Certain categories highly popular (i.e. American Vodkas)
+  - Certain categories are prevalent (i.e. American Vodkas)
   - Similar trends in volume sold in each category
     - Small variations as volume is not equivalent to transaction occurrences
 - Outliers still present in large order sizes
 - Weekend sales data is much smaller due to state regulation
   - Potentially drop for higher accuracy
+- Small order transactions present
+  - Could remove to focus on more frequent categories
+
+![](https://i.imgur.com/aDD9eGZ.png)
+
+![](https://i.imgur.com/QwFVTNx.png)
 
 ## Aggregations
 - Grouping by `category_name`
@@ -97,7 +103,7 @@ Prediction of the next purchase category seems feasible with the findings. Data 
   - `bottles_sold`
   - `packs`
 
-## Justifications
+## Justifications of Data Manipulation
 
 ### Data Sanitation
 - Dropping:
@@ -112,18 +118,58 @@ Prediction of the next purchase category seems feasible with the findings. Data 
     - Removing categories with a lower transaction rate may help improve accuracy
 
 ### Encoding of Strings
-- Liquor categories and counties will be one-hot encoded
+- Liquor counties will be one-hot encoded
   - May add a column overhead
   - Will be more descriptive by not giving an imposed ordinal value
-  - Category and county should represent subsets of product clusters with no bias
+  - County should represent subsets of product clusters with no bias
+- Category names will be label encoded
+  - Wiki says to use this on target value and not input, which aligns with the intended goal
+  - Will allow for prediction of this column
 
-### Splitting X and Y Data
-- Features will be the remaining data to potentially find identifiers
+## Splitting X and Y Data
+- Features will be the remaining data to find identifiers
   - Pack size
   - Bottles sold
   - Volume
   - County trends
   - etc.
 - Label will be the category of the liquor
-  - The goal will be to predict which one will come next
+  - The goal will be to predict a category from features in a future order
 
+## Accuracy
+- 10%
+```
+Linear Regression Accuracy: 0.1436002377461134
+Decision Tree Classifier Accuracy: 1.0
+```
+- This accuracy continues with 10%-90% train/test data
+```
+"Linear Regression Accuracy: [0.1436002377461134, 0.1482966852150559, 0.1448501462002889, 0.14775202796438558, 0.14623859916380244, 0.14688284651380445, 0.148751396127903, 0.15042739033084762, 0.1459614154427077]
+
+Decision Tree Classifier Accuracy: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+```
+
+### Accuracy vs Percent of Training Data
+
+#### Linear Regression
+![](https://i.imgur.com/WjjBb8j.png)
+
+#### Decision Tree
+![](https://i.imgur.com/0SKXyzw.png)
+
+## Residuals
+- The residual plot for linear regression is highly linear in form. Some research indicates that the points tend to form a pattern when the model function is incorrect. Since classification was the goal of this test, it makes sense that this has a low accuracy when dealing with discrete values.
+
+![](https://i.imgur.com/p6NnAmR.png)
+
+
+## Decision Tree Classifier
+- Many decisions are made due to the broad number of categories available
+- It appears to create various terminal nodes for a category by comparing the features provided
+  
+![](https://i.imgur.com/8W9TK1o.jpeg)
+
+## Model Comparison
+- The accuracy of the decision tree is at the highest value of `1`. Comparatively, the linear regression model has a value `~0.14`. 
+- The target goal consists of discrete values that favor the decision tree. Linear regression tends to aim for continuous values of data.
+- For the use case of classification, the decision tree is better able to define properties of liquor transactions to identify patterns in `category_name` values.
